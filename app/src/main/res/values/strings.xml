@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">listen-app</string>
+    <string name="app_name">My Application</string>
+    <string name="hello">用户名</string>
 </resources>

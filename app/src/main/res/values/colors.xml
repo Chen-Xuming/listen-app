@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="ReleaseTime">#ff8736</color>
+    <color name="Orange1">#ffa568</color>
+    <color name="Black">#383130</color>
+    <color name="Gray">#a1a1a1</color>
+    <color name="tabNotChosenTextColor">#3E3838</color>
+    <color name="tabChosenTextColor">#2e2a2a</color>
+    <color name="shuibowen">#ffbd71</color>
 </resources>
