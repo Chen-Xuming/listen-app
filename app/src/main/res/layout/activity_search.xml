@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:background="#005EBB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="搜索"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+        style="@style/search_toolbarStyle" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_music_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+    android:id="@+id/tv_search_clean"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:padding="10dp"
+    android:text="清空搜索记录"
+    android:textColor="#969696"
+    android:textSize="16sp" />
+    
+    <TextView
+        android:id="@+id/tv_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="这里放置显示声音和用户的Layout"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:background="#8BC34A"/>
+</LinearLayout>

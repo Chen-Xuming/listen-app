@@ -27,4 +27,32 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+
+    implementation 'com.github.Chen-Xuming:AndroidAudioRecorder:0.3.1'   // recorder录音机
+
+    implementation 'com.github.clans:fab:1.6.4'     // floating-button
+
+    implementation 'com.vincent.filepicker:MultiTypeFilePicker:1.0.8'   // 文件选择器
+
+    implementation 'net.the4thdimension:audio-wife:1.0.3'   // 小小播放器
+
+    implementation 'pub.devrel:easypermissions:2.0.1'   // 快速权限
 }
+
+/*
+        统一 support 版本：26.0.0
+ */
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                //这里指定需要统一的依赖版本,这里统一为26.0.0-alpha1
+                details.useVersion '26.0.0'
+            }
+        }
+    }
+}
+

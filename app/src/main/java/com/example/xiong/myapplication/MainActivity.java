@@ -34,8 +34,14 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.os.Handler;
+
+import com.example.xiong.myapplication.search.SearchActivity;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.io.File;
 import java.lang.reflect.Array;
+import java.nio.FloatBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,6 +123,48 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentList=new ArrayList<>();
         initFragment();
+
+
+        /*******************************************
+                           Floating Button
+         *********************************************/
+        final FloatingActionMenu floating_menu = findViewById(R.id.floating_menu);
+        FloatingActionButton fab_search = findViewById(R.id.fab_search);
+        FloatingActionButton fab_mypage = findViewById(R.id.fab_my_page);
+        FloatingActionButton fab_create = findViewById(R.id.fab_create);
+
+        // 搜索界面
+        fab_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floating_menu.close(true);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 个人中心
+        fab_mypage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                floating_menu.close(true);
+                //Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                //startActivity(intent);
+            }
+        });
+
+        // 发布动态
+        fab_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floating_menu.close(true);
+                Intent intent = new Intent(MainActivity.this, SendActivity.class);
+                startActivity(intent);
+            }
+        });
+        /* ************************************************ */
+
+
 
 
 //        format = new SimpleDateFormat("mm:ss");
