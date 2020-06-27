@@ -14,11 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".MyCenterActivity"></activity>
         <activity
             android:name=".search.SearchActivity"
-            android:theme="@style/SeachViewActivityTheme"/>
-        <activity android:name=".SendActivity"/>
-        <activity android:name=".register"></activity>
+            android:theme="@style/SeachViewActivityTheme" />
+        <activity android:name=".SendActivity" />
+        <activity android:name=".register" />
         <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

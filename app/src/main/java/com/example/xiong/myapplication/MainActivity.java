@@ -148,8 +148,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 floating_menu.close(true);
-                //Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                //startActivity(intent);
+
+                /*
+                        已登录则跳到个人中心，未登录则跳到登录页面
+
+                 */
+                Intent intent = new Intent(MainActivity.this, MyCenterActivity.class);
+                startActivity(intent);
             }
         });
 

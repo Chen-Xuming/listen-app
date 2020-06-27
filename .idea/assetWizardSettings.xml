@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/G:/Android/Android%20Studio/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_mic_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/G:/Android/Android%20Studio/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_right_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,11 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="a1a1a1" />
-                            <entry key="height" value="30" />
-                            <entry key="outputName" value="ic_mic_gray_30dp" />
-                            <entry key="overrideSize" value="true" />
+                            <entry key="outputName" value="ic_keyboard_arrow_right_gray_24dp" />
                             <entry key="sourceFile" value="C:\Users\chen" />
-                            <entry key="width" value="30" />
                           </map>
                         </option>
                       </PersistentState>
