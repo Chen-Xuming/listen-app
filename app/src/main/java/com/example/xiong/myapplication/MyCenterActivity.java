@@ -1,5 +1,6 @@
 package com.example.xiong.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.wyp.avatarstudio.AvatarStudio;
+import com.leon.lib.settingview.LSettingItem;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
@@ -22,6 +24,7 @@ public class MyCenterActivity extends AppCompatActivity {
     private ImageView img_background;
     private ImageView img_headPic;
     private TextView tv_username;
+    private LSettingItem followed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class MyCenterActivity extends AppCompatActivity {
         img_background = findViewById(R.id.mycenter_bg);
         img_headPic = findViewById(R.id.mycenter_head);
         tv_username = findViewById(R.id.mycenter_username);
+        followed = findViewById(R.id.item_3);
 
         // 加载图片
         init_pictures();
@@ -42,6 +46,13 @@ public class MyCenterActivity extends AppCompatActivity {
                 changePicture();
             }
         });
+        followed.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+            @Override
+            public void click(boolean isChecked) {
+                goToFollowed();
+            }
+        });
+
     }
 
     /*
@@ -101,5 +112,11 @@ public class MyCenterActivity extends AppCompatActivity {
                                 .into(img_background);
                     }
                 });
+    }
+
+    //转入关注列表界面
+    private void goToFollowed(){
+        Intent intent = new Intent(MyCenterActivity.this,Followed.class);
+        startActivity(intent);
     }
 }

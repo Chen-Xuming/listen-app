@@ -61,13 +61,14 @@
             android:layout_width="280dp"
             android:layout_height="50dp"
             android:singleLine="true"
-            android:hint="@string/enter_pass"
+            android:hint="@string/verify_pass"
             android:drawablePadding="15dp"
             android:textSize="15sp"
             android:inputType="textPassword"
             android:background="@drawable/register_input"
             android:gravity="center"
             />
+
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"

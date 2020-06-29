@@ -67,21 +67,23 @@
             android:id="@+id/item_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_mic_gray_30dp"
+            leon:leftIcon="@drawable/ic_baseline_favorite_30"
             leon:leftText="我的收藏" />
 
         <com.leon.lib.settingview.LSettingItem
             android:id="@+id/item_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_mic_gray_30dp"
-            leon:leftText="我的关注"/>
+            leon:leftIcon="@drawable/ic_followed"
+            leon:leftText="我的关注"
+            android:clickable="true"
+            android:focusable="true" />
 
         <com.leon.lib.settingview.LSettingItem
             android:id="@+id/item_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_mic_gray_30dp"
+            leon:leftIcon="@drawable/ic_baseline_group_30"
             leon:leftText="我的粉丝"
             leon:isShowUnderLine="false"/>
 
@@ -89,7 +91,7 @@
             android:id="@+id/item_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_mic_gray_30dp"
+            leon:leftIcon="@drawable/ic_baseline_power_settings_new_30"
             leon:leftText="退出登录"
             android:layout_marginTop="10dp"
             leon:isShowUnderLine="false"/>
