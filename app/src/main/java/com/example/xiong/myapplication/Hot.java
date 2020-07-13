@@ -30,7 +30,7 @@ public class Hot  extends Fragment {
         myListView=view.findViewById(R.id.MomentListHot);
 
         mommentsArray2=new ArrayList<>();
-        mediaPlayer2=MediaPlayer.create(context,R.raw.liebesleid);
+        //mediaPlayer2=MediaPlayer.create(context,R.raw.liebesleid);
         //mediaPlayer2.setLooping(true);
         Moments a=new Moments(ContextCompat.getDrawable(context,R.drawable.pic),"绿豆",
                 "清澈的歌声","这是我自己唱的一首歌","33分钟前",mediaPlayer2);

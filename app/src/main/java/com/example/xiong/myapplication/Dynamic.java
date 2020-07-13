@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -26,15 +28,25 @@ public class Dynamic extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState)
     {
+
+
+
         View view =inflater.inflate(R.layout.listviewdynamic,null);
-        myListView=view.findViewById(R.id.MomentListDynamic);
+        //myListView=view.findViewById(R.id.MomentListDynamic);
+        //myListView=view.findViewById(R.id.sound_list);
 
         mommentsArray1=new ArrayList<>();
-        mediaPlayer1=MediaPlayer.create(context,R.raw.joy_of_love);
+        //mediaPlayer1=MediaPlayer.create(context,R.raw.joy_of_love);
         //mediaPlayer2.setLooping(true);
         Moments a=new Moments(ContextCompat.getDrawable(context,R.drawable.pic),"红豆",
                 "清澈的歌声","简介","12分钟前",mediaPlayer1);
         mommentsArray1.add(a);
+
+        mommentsArray1.add(a);
+        mommentsArray1.add(a);
+        mommentsArray1.add(a);
+
+
         myListView.setAdapter(new MyAdapter(context,mommentsArray1));
         return view;
     }

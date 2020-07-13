@@ -8,11 +8,14 @@ package com.example.xiong.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,18 +28,37 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xiong.myapplication.record.RecordActivity;
 import com.example.xiong.myapplication.util.PermissionUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.vincent.filepicker.Constant;
 import com.vincent.filepicker.activity.AudioPickActivity;
 import com.vincent.filepicker.filter.entity.AudioFile;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
 import cafe.adriel.androidaudiorecorder.model.AudioChannel;
 import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import nl.changer.audiowife.AudioWife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.os.Environment.DIRECTORY_MUSIC;
 import static com.vincent.filepicker.activity.AudioPickActivity.IS_NEED_RECORDER;
@@ -292,16 +314,191 @@ public class SendActivity extends AppCompatActivity {
             return;
         }
 
-        /*
-                网络部分
+        upLoadFile(str1, str2);
+    }
+
+    /*
+             先上传音频后发布动态
+     */
+    private void upLoadFile(final String title, final String description){
+
+        String filepath = mUri.getPath();
+        File file = new File(filepath);
+        String filename = file.getName();
+
+        Log.d("create_record", "filePath:" + filepath + "\nfilename:" + filename);
 
 
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("sound", filename,
+                        RequestBody.create(MediaType.parse("multipart/form-data"),
+                                new File(filepath)))
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://129.204.242.63:8080/listen/mainServlet?action=getMusicUrl")
+                .post(requestBody)
+                .build();
+
+        Call call = client.newCall(request);
+
+        final KProgressHUD hud =
+                KProgressHUD.create(SendActivity.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("请稍等")
+                        .setCancellable(false)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                        .show();
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                hud.dismiss();
+                Looper.prepare();
+                Toast.makeText(SendActivity.this, "发布失败，请重试。", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String result = response.body().string();
+
+                final JsonObject jsonObject  = JsonParser.parseString(result).getAsJsonObject();
+
+                if(jsonObject.get("code").getAsInt() == 1){
+                    String url = jsonObject.get("data").getAsString();
+                    sendRecord(title, description, url);
+                    hud.dismiss();
+                }else{
+                    hud.dismiss();
+                    Looper.prepare();
+                    Toast.makeText(SendActivity.this, "发布失败，请重试。", Toast.LENGTH_LONG).show();
+                    Looper.loop();
+                }
+            }
+        });
+    }
+
+    private void sendRecord(final String title, final String description, String soundFileUrl){
+        String api = "http://129.204.242.63:8080/listen/mainServlet?action=addRecord";
+
+        final String soundFileUrl_ = "http://129.204.242.63:8080/music/" + soundFileUrl;
+
+        final String username = UserManager.getCurrentUser().getUsername();
+
+        int duration = 0;
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(mUri.toString());
+            mediaPlayer.prepare();
+            duration = mediaPlayer.getDuration();
+            mediaPlayer.release();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        final int duration_ = duration;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date curDate =  new Date(System.currentTimeMillis());
+        final String create_time = formatter.format(curDate);
 
 
+        Log.d("create_record", "\nusername:" + username + "\ntitle:" + title
+                    + "\ndescription:" + description + "\nsoundFileUrl:" + soundFileUrl_
+                    + "\nduration:" + duration + "\ncreate_time:" + create_time);
 
-         */
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("username", username)
+                .add("title", title)
+                .add("description", description)
+                .add("soundFileUrl", soundFileUrl_)
+                .add("duration", String.valueOf(duration))
+                .add("create_time", create_time)
+                .build();
+        Request request = new Request.Builder()
+                .url(api).post(body)
+                .build();
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Looper.prepare();
+                Toast.makeText(SendActivity.this, "网络不佳，请重试。", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String result = response.body().string();
+
+                final JsonObject jsonObject  = JsonParser.parseString(result).getAsJsonObject();
+
+                if(jsonObject.get("code").getAsInt() == 1){
+//                    Looper.prepare();
+//                    Toast.makeText(SendActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+//
+//                    AudioWife.getInstance().pause();
+//                    AudioWife.getInstance().release();
+//
+//                    finish();
+//
+//                    Looper.loop();
+//
+//                    //Intent intent = new Intent(SendActivity.this, RecordActivity.class);
+//                    //intent.putExtra("activity_type", 0);
+//
+//
+//
+//                    //startActivity(intent);
 
 
-        Toast.makeText(SendActivity.this, "发布成功！", Toast.LENGTH_SHORT).show();
+                    final int id = jsonObject.get("data").getAsInt();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(SendActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+
+                            AudioWife.getInstance().pause();
+                            AudioWife.getInstance().release();
+
+                            Intent intent = new Intent(SendActivity.this, MainActivity.class);
+                            intent.putExtra("username", username);
+                            intent.putExtra("title", title);
+                            intent.putExtra("description", description);
+                            intent.putExtra("soundFileUrl", soundFileUrl_);
+                            intent.putExtra("duration", duration_);
+                            intent.putExtra("create_time", create_time);
+                            intent.putExtra("id", id);
+                            intent.putExtra("headpic", UserManager.getCurrentUser().getHeadPic_url());
+
+                            intent.putExtra("create_a_record", "yes");
+
+
+                            Log.d("intent_value", "\nusername:" + username + "\ntitle:" + title
+                                    + "\ndescription:" + description + "\nsoundFileUrl:" + soundFileUrl_
+                                    + "\nduration:" + duration_ + "\ncreate_time:" + create_time);
+
+                            setResult(1024, intent);
+
+                            finish();
+                        }
+                    });
+
+                }else{
+                    Looper.prepare();
+                    Toast.makeText(SendActivity.this, "抱歉，请重试。", Toast.LENGTH_LONG).show();
+                    Looper.loop();
+                }
+            }
+        });
+
     }
 }

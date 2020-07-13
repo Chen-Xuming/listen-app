@@ -13,7 +13,7 @@ public class MusiceService extends Service {
     @Override
     public void onCreate()
     {
-        mediaPlayer=MediaPlayer.create(this,R.raw.joy_of_love);
+        //mediaPlayer=MediaPlayer.create(this,R.raw.joy_of_love);
         System.out.println("onCreate()");
         super.onCreate();
     }

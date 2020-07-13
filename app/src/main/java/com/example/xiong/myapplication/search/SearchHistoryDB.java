@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -65,11 +66,11 @@ public class SearchHistoryDB extends SQLiteOpenHelper {
 
         Cursor c2 = db.rawQuery("select * from SearchHistory", null);
         int count = c2.getCount();
-        if(count >= 4){
+        if(count >= 7){
             db.execSQL("delete from SearchHistory where" +
-                    " (select count(id) from SearchHistory )> 4 and " +
+                    " (select count(id) from SearchHistory )> 7 and " +
                     " id in (select id from SearchHistory order by id desc limit " +
-                    " (select count(id) from SearchHistory) offset 4 )");
+                    " (select count(id) from SearchHistory) offset 7 )");
         }
 
         //生成ContentValues对象
@@ -80,6 +81,9 @@ public class SearchHistoryDB extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, cv);
         //关闭数据库
         db.close();
+
+
+        Log.d("DB insert", keyword);
 
         return true;
     }

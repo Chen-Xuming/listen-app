@@ -24,7 +24,7 @@
             app:tabSelectedTextColor="@color/ReleaseTime"
             app:tabIndicatorColor="@color/ReleaseTime"
             app:tabGravity="center"
-            app:tabIndicatorHeight="3dp"/>
+            app:tabIndicatorHeight="3dp" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--
         <FrameLayout
             android:id="@+id/fragment"
             android:layout_width="match_parent"
@@ -41,6 +42,13 @@
             android:background="@color/background">
 
         </FrameLayout>
+        -->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 
         <!-- ********** Floating Button ************ -->
         <com.github.clans.fab.FloatingActionMenu

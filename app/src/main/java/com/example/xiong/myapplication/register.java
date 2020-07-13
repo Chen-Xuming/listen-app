@@ -2,13 +2,32 @@ package com.example.xiong.myapplication;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
     private EditText account;
@@ -65,12 +84,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                     toast.show();
                 }
                 else if(p1.equals(p2)){
-                    Toast toast=Toast.makeText(register.this,null,Toast.LENGTH_SHORT);
-                    toast.setText("注册成功");
-                    toast.show();
-                    Intent intent = new Intent(register.this,MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    registerRequest(aName, p1);
                 }else{
                     //密码不一致
                     Drawable a = getDrawable(R.drawable.red_radius_input);
@@ -82,5 +96,64 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             default:
                 break;
         }
+    }
+
+    /*
+            注册
+     */
+    private void registerRequest(final String username, final String password){
+        String url = "http://129.204.242.63:8080/listen/registServlet?action=regist";
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = new FormBody.Builder()
+                .add("username", username)
+                .add("password", password)
+                .build();
+        final Request request = new Request.Builder()
+                .url(url).post(body)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Looper.prepare();
+                Toast.makeText(register.this, "网络不佳，请重试。", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String result = response.body().string();
+
+                final JsonObject jsonObject  = JsonParser.parseString(result).getAsJsonObject();
+
+                int code = jsonObject.get("code").getAsInt();
+
+                switch (code){
+                    case 0:
+                        Looper.prepare();
+                        Toast.makeText(register.this, "服务器发生错误，请重试。", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                        break;
+                    case 2:
+                        Looper.prepare();
+                        Toast.makeText(register.this, "用户名已存在。", Toast.LENGTH_LONG).show();
+                        Looper.loop();
+                        break;
+                    case 1:
+                        //  注册成功
+                        UserManager.saveAccount(register.this, username, password, null);
+
+                        Looper.prepare();
+                        Toast.makeText(register.this, "注册成功！", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(register.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Looper.loop();
+                }
+            }
+        });
     }
 }

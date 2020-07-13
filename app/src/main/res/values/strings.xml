@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">听</string>
     <string name="hello">用户名</string>
     <string name="login_name">请输入账号</string>
     <string name="enter_pass">请输入密码</string>

@@ -48,6 +48,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"/>
         </RelativeLayout>
+
     </FrameLayout>
 
     <LinearLayout
@@ -58,41 +59,46 @@
         android:orientation="vertical">
 
         <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_one"
+            android:id="@+id/mycenter_mycreat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_mic_gray_30dp"
-            leon:leftText="我的发布"/>
+            leon:leftIcon="@drawable/mic_colorful"
+            leon:leftText="我的作品"
+            leon:LtextColor="#000000"/>
         <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_2"
+            android:id="@+id/mycenter_mycollect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_baseline_favorite_30"
-            leon:leftText="我的收藏" />
+            leon:leftIcon="@drawable/collect_colorful"
+            leon:leftText="我的收藏"
+            leon:LtextColor="#000000"/>
 
         <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_3"
+            android:id="@+id/mycenter_myfollow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_followed"
+            leon:leftIcon="@drawable/follow_colorful"
             leon:leftText="我的关注"
+            leon:LtextColor="#000000"
             android:clickable="true"
             android:focusable="true" />
 
         <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_4"
+            android:id="@+id/mycenter_myfans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_baseline_group_30"
+            leon:leftIcon="@drawable/fans"
             leon:leftText="我的粉丝"
+            leon:LtextColor="#000000"
             leon:isShowUnderLine="false"/>
 
         <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_5"
+            android:id="@+id/mycenter_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_baseline_power_settings_new_30"
+            leon:leftIcon="@drawable/logout_colorful"
             leon:leftText="退出登录"
+            leon:LtextColor="#000000"
             android:layout_marginTop="10dp"
             leon:isShowUnderLine="false"/>
 
