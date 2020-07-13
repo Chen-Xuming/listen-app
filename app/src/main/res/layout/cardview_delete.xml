@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    android:id="@+id/cardView_delete"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:elevation="5dp">
+
+    <RelativeLayout
+        android:id="@+id/il"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ProfilePhoto"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/pic"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello"
+            android:textSize="16sp"
+            android:textColor="@color/Black"
+            android:layout_toRightOf="@id/ProfilePhoto"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            />
+        <TextView
+            android:id="@+id/ReleaseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布时间"
+            android:textSize="11sp"
+            android:textColor="@color/darkGray"
+            android:layout_toRightOf="@id/ProfilePhoto"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/username"
+            />
+        <TextView
+            android:id="@+id/CompositionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作品名"
+            android:textColor="@color/Black"
+            android:textSize="18sp"
+            android:layout_marginLeft="5dp"
+            android:layout_below ="@id/ProfilePhoto"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作品简介，最多三行"
+            android:layout_alignLeft="@id/CompositionName"
+            android:textColor="@color/Black"
+            android:textSize="16sp"
+            android:maxLines="10"
+            android:layout_below ="@id/CompositionName"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:lineSpacingExtra="8dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/record_delete"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/delete_gray"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/introduction"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/play"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <SeekBar
+            android:id="@+id/Process"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:focusable="true"
+            android:layout_below="@id/introduction"
+            android:layout_marginHorizontal="8dp"
+            android:layout_toRightOf="@id/play"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/play"
+            android:maxHeight="6dp"
+            android:max="100"
+            android:splitTrack="false"
+            android:progressDrawable="@drawable/po_seekbar"
+            android:thumb="@drawable/seekbar_thumb"/>
+
+        <TextView
+            android:id="@+id/CurrentProcess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/Process"
+            android:text="00:00"
+            android:textSize="9sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/Process"/>
+
+        <TextView
+            android:id="@+id/SoundLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4:32"
+            android:textSize="9sp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/Process"
+            android:layout_alignRight="@id/Process"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
